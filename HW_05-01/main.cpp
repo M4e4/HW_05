@@ -7,19 +7,22 @@ T myPow(T a)
 	return  a * a;
 }
 template<typename T>
-void myPow(std::vector<T> &a)
+std::vector<T> myPow(const std::vector<T>& vec)
 {
-	for (int i{}; i < a.size(); ++i)
+	std::vector<T> temp{ vec };
+
+	for (int i{}; i < vec.size(); ++i)
 	{
-		a[i] *= a[i];
+		temp[i] *= temp[i];
 	}
+	return temp;
 }
 
 int main()
 {
 	int num{ 4 };
 	std::vector<int> vec{ -1, 4, 8 };
-	auto printVector = [&vec]()
+	auto printVector = [](std::vector<int> vec)
 		{
 			for (int i{}; i < vec.size(); ++i)
 			{
@@ -31,12 +34,12 @@ int main()
 	std::cout << "[OUT]: " << myPow(4) << std::endl;
 
 	std::cout << "[IN]: ";
-	printVector();
+	printVector(vec);
 
-	myPow(vec);
+	std::vector<int> result{ myPow(vec) };
 
 	std::cout << "[OUT]: ";
-	printVector();
+	printVector(result);
 
 	return EXIT_SUCCESS;
 }
